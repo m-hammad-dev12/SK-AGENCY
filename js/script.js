@@ -54,7 +54,8 @@ const CATEGORY_DATA = {
     'Car Key Duplication — $44.00',
     'Key Fob with Blade — $44.00',
     'Mercedes-Benz Smart Key Fob — $44.00',
-    'Smart Key Fob Bundle — $44.00'
+    'Smart Key Fob Bundle — $44.00',
+    'Mercedes Diagnostic & Key Programming Workstation — $44.00'
   ],
   'Other Enquiries': [
     'Customer lead generation',
