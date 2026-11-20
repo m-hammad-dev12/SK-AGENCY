@@ -162,3 +162,9 @@ a, button { -webkit-tap-highlight-color: transparent; }
 @media (min-width: 1920px) {
   .container { max-width: 1360px; }
 }
+
+/* New photo products: uploaded images are square (260/261px), so keep
+   a 1:1 box instead of the 220px-tall crop in style.css — full image,
+   no important content cropped, on every width. */
+.product-img-wrap { height: auto; aspect-ratio: 1 / 1; }
+.product-img { object-fit: cover; }
