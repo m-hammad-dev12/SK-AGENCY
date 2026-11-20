@@ -1,0 +1,159 @@
+/* ==========================================================================
+   SK AGENCY — Premium Animations & Image-First Cards (Nov 2026)
+   --------------------------------------------------------------------------
+   Loads LAST (after style.css, hero-light.css, responsive-fix.css,
+   clean-theme.css). No rebuild: it only layers on top of the existing
+   site. No animation libraries — pure CSS transitions + the existing
+   IntersectionObserver reveal in js/script.js, plus js/premium.js for
+   the View Deals toggle and staggered card entrances.
+   - Blue hover highlights (not orange), royal blue buttons kept.
+   - WhatsApp stays green.
+   - All motion respects prefers-reduced-motion.
+   ========================================================================== */
+
+/* --- 1. Card hover: lift, shadow, blue highlight, image zoom -------------
+   Lift/zoom already exist in style.css; this sharpens them and swaps the
+   orange hover accent for blue to match the clean theme. */
+.service-card,
+.product-card {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.service-card:hover,
+.product-card:hover {
+  border-color: rgba(37, 99, 235, 0.35);
+}
+
+.service-card:hover .service-header-icon {
+  background: rgba(37, 99, 235, 0.25);
+  color: #2563EB;
+}
+
+.service-header-icon {
+  transition: transform 0.35s ease, background 0.35s ease, color 0.35s ease;
+}
+
+.product-img-wrap,
+.product-icon-wrap,
+.service-icon-header {
+  overflow: hidden;
+}
+
+.product-img,
+.service-img {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Subtle lift for the other card-style blocks too */
+.feature-box,
+.about-pillar {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+}
+
+.feature-box:hover,
+.about-pillar:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+/* --- 2. Buttons: smooth press feedback + visible focus ------------------- */
+.btn:active {
+  transform: scale(0.97);
+}
+
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible {
+  outline: 3px solid var(--brand-blue, #2563EB);
+  outline-offset: 2px;
+}
+
+/* --- 3. Navigation: blue animated underline, smooth colour --------------- */
+.nav-link:hover,
+.nav-link.active {
+  color: var(--brand-blue, #2563EB);
+}
+
+.nav-link::after {
+  background-color: var(--brand-blue, #2563EB);
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link.active {
+  color: var(--brand-blue, #2563EB);
+}
+
+/* Navbar + drawer already transition in style.css; keep them calm. */
+.navbar-header {
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+/* --- 4. Image-first cards: View Deals / Hide Details ----------------------
+   Collapsed: only the visual (photo / icon header) and the View Deals
+   button show. The body (title, description, features, price, CTAs)
+   expands smoothly with max-height + fade. No overlap: the grid reflows
+   naturally, so expanded content pushes later rows down. */
+.view-deals-bar {
+  padding: 1rem 1.25rem 1.25rem;
+}
+
+.view-deals-btn {
+  width: 100%;
+}
+
+.service-card .service-body,
+.product-card .product-body {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  padding-top: 0;
+  padding-bottom: 0;
+  transition: max-height 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.4s ease,
+    padding-top 0.55s ease,
+    padding-bottom 0.55s ease,
+    visibility 0.55s;
+}
+
+.service-card.details-open .service-body,
+.product-card.details-open .product-body {
+  max-height: 700px;
+  opacity: 1;
+  visibility: visible;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+/* --- 5. Gentle floating, only on the floating WhatsApp shortcut ---------- */
+.btn-floating {
+  animation: gentle-float 6s ease-in-out infinite;
+}
+
+@keyframes gentle-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+/* --- 6. Reduced motion: instant, no floating, content always visible ----- */
+@media (prefers-reduced-motion: reduce) {
+  .btn-floating {
+    animation: none;
+  }
+
+  .service-card .service-body,
+  .product-card .product-body {
+    transition: none;
+  }
+
+  .service-card.details-open .service-body,
+  .product-card.details-open .product-body {
+    max-height: none;
+  }
+}
