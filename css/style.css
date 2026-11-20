@@ -632,10 +632,7 @@ p:last-child {
   display: flex;
   align-items: center;
   background-color: var(--primary-navy);
-  background-image: linear-gradient(135deg, rgba(7, 27, 58, 0.94) 0%, rgba(16, 43, 80, 0.88) 100%), url('../assets/hero-banner.jpg');
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
+  background: radial-gradient(circle at 85% 20%, rgba(255, 121, 0, 0.16) 0%, transparent 45%), radial-gradient(circle at 15% 80%, rgba(16, 43, 80, 0.6) 0%, transparent 50%), linear-gradient(135deg, #071B3A 0%, #0f2040 50%, #102B50 100%);
   color: var(--white);
   padding: 5rem 0 4rem 0;
   overflow: hidden;
@@ -1479,15 +1476,13 @@ p:last-child {
 }
 
 .banner-call {
-  background: linear-gradient(135deg, rgba(7, 27, 58, 0.94), rgba(16, 43, 80, 0.92)), url('../assets/call-now-banner.jpg');
-  background-size: cover;
-  background-position: center;
+  background: radial-gradient(circle at 90% 20%, rgba(255, 121, 0, 0.22) 0%, transparent 50%), linear-gradient(135deg, #071B3A 0%, #0f2040 50%, #102B50 100%);
+  border: 1px solid rgba(255, 121, 0, 0.25);
 }
 
 .banner-whatsapp {
-  background: linear-gradient(135deg, rgba(7, 46, 28, 0.92), rgba(18, 92, 57, 0.94)), url('../assets/whatsapp-banner.jpg');
-  background-size: cover;
-  background-position: center;
+  background: radial-gradient(circle at 90% 20%, rgba(37, 211, 102, 0.25) 0%, transparent 50%), linear-gradient(135deg, #062b1a 0%, #0d4a2b 50%, #125c39 100%);
+  border: 1px solid rgba(37, 211, 102, 0.3);
 }
 
 .banner-header {
@@ -2479,4 +2474,307 @@ p:last-child {
     opacity: 1 !important;
     transform: none !important;
   }
+}
+
+
+/* --------------------------------------------------------------------------
+   24. Premium Visual Styling Without External Photos
+   -------------------------------------------------------------------------- */
+.category-icon-header {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  background: radial-gradient(circle at 75% 30%, rgba(255, 121, 0, 0.18) 0%, transparent 60%), linear-gradient(135deg, #071B3A 0%, #0f2040 60%, #102B50 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2px solid rgba(255, 121, 0, 0.2);
+}
+
+.category-header-icon {
+  width: 68px;
+  height: 68px;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-orange);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  transition: all var(--transition-normal);
+}
+
+.category-card:hover .category-header-icon {
+  transform: scale(1.1);
+  background: rgba(255, 121, 0, 0.25);
+  color: #FFA34D;
+  box-shadow: 0 14px 28px rgba(255, 121, 0, 0.35);
+}
+
+.category-header-icon svg {
+  width: 34px;
+  height: 34px;
+  fill: currentColor;
+}
+
+.service-icon-header {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  background: radial-gradient(circle at 80% 25%, rgba(255, 121, 0, 0.2) 0%, transparent 55%), linear-gradient(135deg, #071B3A 0%, #0f2040 60%, #102B50 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2px solid rgba(255, 121, 0, 0.2);
+}
+
+.service-header-icon {
+  width: 74px;
+  height: 74px;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-orange);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+  transition: all var(--transition-normal);
+}
+
+.service-card:hover .service-header-icon {
+  transform: scale(1.1);
+  background: rgba(255, 121, 0, 0.25);
+  color: #FFA34D;
+}
+
+.service-header-icon svg {
+  width: 38px;
+  height: 38px;
+  fill: currentColor;
+}
+
+.product-icon-wrap {
+  position: relative;
+  width: 100%;
+  height: 190px;
+  background: radial-gradient(circle at 50% 35%, rgba(255, 121, 0, 0.08) 0%, transparent 60%), #F8FAFC;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.product-icon-badge {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-md);
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-orange);
+  transition: all var(--transition-normal);
+}
+
+.product-card:hover .product-icon-badge {
+  transform: scale(1.1);
+  border-color: var(--primary-orange);
+  box-shadow: 0 8px 22px rgba(255, 121, 0, 0.25);
+}
+
+.product-icon-badge svg {
+  width: 30px;
+  height: 30px;
+  fill: currentColor;
+}
+
+/* About executive brand card */
+.about-brand-card {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
+  background: radial-gradient(circle at 85% 15%, rgba(255, 121, 0, 0.18) 0%, transparent 50%), linear-gradient(135deg, #071B3A 0%, #0f2040 60%, #102B50 100%);
+  padding: 3.5rem 2.5rem;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-brand-inner {
+  text-align: center;
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.about-brand-logo {
+  max-height: 68px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.3));
+}
+
+.about-brand-tagline {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #FFA34D;
+  margin-bottom: 0.5rem;
+}
+
+.about-metrics-strip {
+  display: flex;
+  gap: 1.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.about-metric-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.about-metric-num {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.1;
+}
+
+.about-metric-lbl {
+  font-size: 0.75rem;
+  color: #D3DDEB;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Why choose us commitment card */
+.why-commitment-card {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  padding: 3rem 2.25rem;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.why-commitment-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, var(--primary-navy) 0%, var(--primary-orange) 100%);
+}
+
+.commitment-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--primary-orange);
+  background: var(--light-orange);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  margin-bottom: 1rem;
+}
+
+.commitment-check-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.commitment-check-item {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-size: 0.9375rem;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.commitment-check-item svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--primary-orange);
+  flex-shrink: 0;
+}
+
+/* Contact Overview Inner Card */
+.contact-overview-inner {
+  padding: 3rem 2.5rem;
+  background: radial-gradient(circle at 85% 15%, rgba(255, 121, 0, 0.18) 0%, transparent 55%), linear-gradient(135deg, #071B3A 0%, #0f2040 60%, #102B50 100%);
+  color: var(--white);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.contact-hours-box {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.hours-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+  color: #D3DDEB;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Social pills */
+.social-pill-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.65rem 1.25rem;
+  background: var(--light-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  font-family: var(--font-heading);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--primary-navy);
+  transition: all var(--transition-fast);
+}
+
+.social-pill-link:hover {
+  background: var(--primary-navy);
+  color: var(--white);
+  border-color: var(--primary-navy);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.social-pill-link svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
 }

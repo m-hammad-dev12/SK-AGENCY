@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>404 - Page Not Found | SK AGENCY</title>
+  <meta name="robots" content="noindex, follow">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="assets/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .error-hero {
+      min-height: calc(100vh - 80px - 280px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 1.5rem;
+      background: radial-gradient(circle at 50% 30%, rgba(255, 121, 0, 0.08) 0%, transparent 60%), #F5F7FB;
+    }
+    .error-card {
+      background: #FFFFFF;
+      max-width: 680px;
+      width: 100%;
+      border-radius: var(--radius-xl);
+      padding: 3.5rem 2.5rem;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border-color);
+    }
+    .error-code {
+      font-size: clamp(4rem, 10vw, 6.5rem);
+      font-weight: 800;
+      line-height: 1;
+      font-family: var(--font-heading);
+      background: linear-gradient(135deg, #071B3A 0%, #FF7900 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+    }
+    .error-contact-box {
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-light);
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .error-contact-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9375rem;
+      color: var(--primary-navy);
+      font-weight: 600;
+    }
+    .error-contact-pill svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--primary-orange);
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="navbar-header" id="navbar">
+    <div class="container navbar-inner">
+      <a href="/" class="navbar-brand" aria-label="SK AGENCY Home">
+        <img src="assets/logo.png" alt="SK AGENCY Logo" class="navbar-logo" width="160" height="48">
+        <div class="brand-text-block">
+          <span class="brand-name">SK <span>AGENCY</span></span>
+          <span class="brand-tagline-micro">Smart Marketing. Better Growth.</span>
+        </div>
+      </a>
+      <nav class="navbar-nav" aria-label="Main Navigation">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/#services" class="nav-link">Services</a>
+        <a href="/#products" class="nav-link">Products</a>
+        <a href="/#about" class="nav-link">About Us</a>
+        <a href="/#contact" class="nav-link">Contact</a>
+      </nav>
+      <div class="navbar-actions">
+        <a href="/" class="btn btn-primary nav-btn-quote">Return Home</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="error-hero">
+    <div class="error-card">
+      <div class="error-code">404</div>
+      <h1 class="section-title" style="font-size: 1.85rem; margin-bottom: 0.75rem;">Page Not Found</h1>
+      <p style="color: var(--text-muted); font-size: 1.0625rem; line-height: 1.6; margin-bottom: 2rem;">
+        The page you are looking for might have been moved, removed, or is temporarily unavailable. Let us help you navigate back to what you need.
+      </p>
+
+      <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+        <a href="/" class="btn btn-primary btn-lg">
+          <svg class="btn-icon" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+          Back to Home
+        </a>
+        <a href="/#enquiry" class="btn btn-secondary btn-lg">
+          Send an Enquiry
+        </a>
+      </div>
+
+      <div class="error-contact-box">
+        <div class="error-contact-pill">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.02l-2.2 2.2z"/></svg>
+          <span>Phone: <a href="tel:+923701604764" style="color: var(--primary-orange);">+92 370 1604764</a></span>
+        </div>
+        <div class="error-contact-pill">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          <span>Email: <a href="mailto:info@skagency.pk" style="color: var(--primary-orange);">info@skagency.pk</a></span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer-main" role="contentinfo" style="padding-top: 3rem;">
+    <div class="container">
+      <div class="footer-bottom-bar" style="border-top: none; padding-top: 0;">
+        <div>
+          &copy; <span id="currentYear"></span> <strong>SK AGENCY</strong>. All Rights Reserved.
+        </div>
+        <div class="footer-bottom-links">
+          <a href="/">Home</a>
+          <span>&bull;</span>
+          <a href="/privacy.html">Privacy Policy</a>
+          <span>&bull;</span>
+          <a href="/terms.html">Terms &amp; Conditions</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+# Robots.txt for SK AGENCY
+# Allow search engine crawlers
+
+User-agent: *
+Allow: /
+
+Sitemap: https://sk-agency-lime.vercel.app/sitemap.xml

@@ -15,11 +15,12 @@
 const BUSINESS_CONFIG = {
   name: 'SK AGENCY',
   tagline: 'Smart Marketing. More Customers. Better Growth.',
-  rawPhone: '03701604764',
-  defaultCountryCode: '+92', // International standard dial code for 0370 (Pakistan: +92 370 1604764)
-  internationalNumber: '923701604764', // Format required by https://wa.me/
+  phoneDisplay: '+92 370 1604764',
+  localPhone: '03701604764',
+  email: 'info@skagency.pk',
+  defaultCountryCode: '+92',
+  internationalNumber: '923701604764',
   telLink: 'tel:+923701604764',
-  localTelLink: 'tel:03701604764',
   whatsappBaseUrl: 'https://wa.me/923701604764'
 };
 
@@ -56,7 +57,47 @@ const CATEGORY_DATA = {
 };
 
 // ----------------------------------------------------------------------------
-// 2. Initialization on DOMContentLoaded
+// 2. Global State & Service Population Helper
+// ----------------------------------------------------------------------------
+function populateServices(category, preselectedService = null) {
+  const serviceSelect = document.getElementById('enquiryService');
+  if (!serviceSelect) return;
+
+  serviceSelect.innerHTML = '<option value="">-- Select Specific Service / Product --</option>';
+
+  if (!category || !CATEGORY_DATA[category]) {
+    serviceSelect.innerHTML = '<option value="">-- First Select a Category Above --</option>';
+    serviceSelect.disabled = true;
+    return;
+  }
+
+  serviceSelect.disabled = false;
+  const items = CATEGORY_DATA[category];
+
+  let matched = false;
+  items.forEach(item => {
+    const option = document.createElement('option');
+    option.value = item;
+    option.textContent = item;
+    if (preselectedService && item.toLowerCase().trim() === preselectedService.toLowerCase().trim()) {
+      option.selected = true;
+      matched = true;
+    }
+    serviceSelect.appendChild(option);
+  });
+
+  if (preselectedService && !matched) {
+    for (let i = 0; i < serviceSelect.options.length; i++) {
+      if (serviceSelect.options[i].value.toLowerCase().includes(preselectedService.toLowerCase())) {
+        serviceSelect.selectedIndex = i;
+        break;
+      }
+    }
+  }
+}
+
+// ----------------------------------------------------------------------------
+// 3. Initialization on DOMContentLoaded
 // ----------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
@@ -73,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ----------------------------------------------------------------------------
-// 3. Sticky Navbar & Header Scroll State
+// 4. Sticky Navbar & Header Scroll State
 // ----------------------------------------------------------------------------
 function initNavbar() {
   const header = document.querySelector('.navbar-header');
@@ -92,7 +133,7 @@ function initNavbar() {
 }
 
 // ----------------------------------------------------------------------------
-// 4. Mobile Menu Drawer Navigation
+// 5. Mobile Menu Drawer Navigation
 // ----------------------------------------------------------------------------
 function initMobileMenu() {
   const hamburger = document.querySelector('.hamburger-toggle');
@@ -111,19 +152,16 @@ function initMobileMenu() {
 
   hamburger.addEventListener('click', () => toggleMenu());
 
-  // Close when clicking nav links
   navLinks.forEach(link => {
     link.addEventListener('click', () => toggleMenu(false));
   });
 
-  // Close when pressing Escape key
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && drawer.classList.contains('open')) {
       toggleMenu(false);
     }
   });
 
-  // Close when resizing to desktop width
   window.addEventListener('resize', () => {
     if (window.innerWidth > 992 && drawer.classList.contains('open')) {
       toggleMenu(false);
@@ -132,7 +170,7 @@ function initMobileMenu() {
 }
 
 // ----------------------------------------------------------------------------
-// 5. Scrollspy for Active Navbar Link State
+// 6. Scrollspy for Active Navbar Link State
 // ----------------------------------------------------------------------------
 function initScrollspy() {
   const sections = document.querySelectorAll('section[id]');
@@ -161,7 +199,7 @@ function initScrollspy() {
   function updateActiveLinks(sectionId) {
     desktopLinks.forEach(link => {
       const href = link.getAttribute('href');
-      if (href === `#${sectionId}`) {
+      if (href === `#${sectionId}` || href === `/#${sectionId}`) {
         link.classList.add('active');
       } else {
         link.classList.remove('active');
@@ -170,7 +208,7 @@ function initScrollspy() {
 
     mobileLinks.forEach(link => {
       const href = link.getAttribute('href');
-      if (href === `#${sectionId}`) {
+      if (href === `#${sectionId}` || href === `/#${sectionId}`) {
         link.classList.add('active');
       } else {
         link.classList.remove('active');
@@ -180,98 +218,80 @@ function initScrollspy() {
 }
 
 // ----------------------------------------------------------------------------
-// 6. Dynamic Dropdowns for Categories & Services/Products
+// 7. Dynamic Dropdowns for Categories & Services/Products
 // ----------------------------------------------------------------------------
 function initCategoryDropdowns() {
   const categorySelect = document.getElementById('enquiryCategory');
-  const serviceSelect = document.getElementById('enquiryService');
-
-  if (!categorySelect || !serviceSelect) return;
-
-  function populateServices(category, preselectedService = null) {
-    serviceSelect.innerHTML = '<option value="">-- Select Specific Service / Product --</option>';
-
-    if (!category || !CATEGORY_DATA[category]) {
-      serviceSelect.disabled = true;
-      return;
-    }
-
-    serviceSelect.disabled = false;
-    const items = CATEGORY_DATA[category];
-
-    items.forEach(item => {
-      const option = document.createElement('option');
-      option.value = item;
-      option.textContent = item;
-      if (preselectedService && item.toLowerCase() === preselectedService.toLowerCase()) {
-        option.selected = true;
-      }
-      serviceSelect.appendChild(option);
-    });
-  }
+  if (!categorySelect) return;
 
   categorySelect.addEventListener('change', (e) => {
     populateServices(e.target.value);
   });
 
-  // Initial population if category is already selected
   if (categorySelect.value) {
     populateServices(categorySelect.value);
+  } else {
+    populateServices('');
   }
 }
 
 // ----------------------------------------------------------------------------
-// 7. Quick Enquiry Triggers from Product & Service Cards
+// 8. Quick Enquiry Triggers from Product & Service Cards
 // ----------------------------------------------------------------------------
 function initQuickEnquiryTriggers() {
   const triggers = document.querySelectorAll('[data-enquire-category]');
   const categorySelect = document.getElementById('enquiryCategory');
-  const serviceSelect = document.getElementById('enquiryService');
   const messageInput = document.getElementById('enquiryMessage');
   const enquirySection = document.getElementById('enquiry');
+  const form = document.getElementById('leadGenForm');
 
   triggers.forEach(btn => {
     btn.addEventListener('click', (e) => {
+      // Allow navigation if on separate page, but if on homepage, handle smoothly
+      if (window.location.pathname.endsWith('privacy.html') || window.location.pathname.endsWith('terms.html') || window.location.pathname.endsWith('404.html')) {
+        return;
+      }
+
+      e.preventDefault();
       const category = btn.getAttribute('data-enquire-category');
       const service = btn.getAttribute('data-enquire-service');
 
+      // Clear any previous validation errors immediately
+      if (form) {
+        form.querySelectorAll('.form-group').forEach(group => {
+          group.classList.remove('has-error');
+          const err = group.querySelector('.form-error-msg');
+          if (err) err.textContent = '';
+        });
+      }
+
+      // Pre-fill category cleanly
       if (categorySelect && category) {
         categorySelect.value = category;
+        populateServices(category, service);
+      }
 
-        // Populate sub-services
-        if (typeof initCategoryDropdowns === 'function') {
-          const changeEvent = new Event('change');
-          categorySelect.dispatchEvent(changeEvent);
-
-          if (service && serviceSelect) {
-            // Find matching option
-            setTimeout(() => {
-              for (let i = 0; i < serviceSelect.options.length; i++) {
-                if (serviceSelect.options[i].value.toLowerCase().includes(service.toLowerCase())) {
-                  serviceSelect.selectedIndex = i;
-                  break;
-                }
-              }
-            }, 50);
-          }
+      // Pre-fill message cleanly
+      if (messageInput) {
+        if (service) {
+          messageInput.value = `Hello SK AGENCY, I would like to enquire about: ${service}. Please contact me with details.`;
+        } else if (category) {
+          messageInput.value = `Hello SK AGENCY, I would like to enquire about ${category}. Please contact me with details.`;
         }
       }
 
-      if (messageInput && service) {
-        messageInput.value = `Hello SK AGENCY, I would like to enquire about: ${service}. Please contact me with details.`;
-      }
-
-      // Smooth scroll to enquiry form
+      // Smooth scroll to enquiry form and highlight
       if (enquirySection) {
         enquirySection.scrollIntoView({ behavior: 'smooth' });
-        // Pulse effect
+        const nameInput = document.getElementById('enquiryName');
+        if (nameInput) {
+          setTimeout(() => nameInput.focus(), 400);
+        }
         const card = enquirySection.querySelector('.lead-gen-card');
         if (card) {
           card.style.transition = 'box-shadow 0.3s ease';
           card.style.boxShadow = '0 0 0 4px rgba(255, 121, 0, 0.4)';
-          setTimeout(() => {
-            card.style.boxShadow = '';
-          }, 1200);
+          setTimeout(() => { card.style.boxShadow = ''; }, 1200);
         }
       }
     });
@@ -279,7 +299,7 @@ function initQuickEnquiryTriggers() {
 }
 
 // ----------------------------------------------------------------------------
-// 8. Lead Generation Form Validation & Submission
+// 9. Lead Generation Form Validation, Submission & Clean Reset
 // ----------------------------------------------------------------------------
 function initLeadFormValidation() {
   const form = document.getElementById('leadGenForm');
@@ -298,6 +318,29 @@ function initLeadFormValidation() {
     service: document.getElementById('enquiryService'),
     message: document.getElementById('enquiryMessage')
   };
+
+  // Complete clean form reset function
+  function resetFormCompletely() {
+    form.reset();
+
+    // Clear category selection
+    if (fields.category) {
+      fields.category.value = '';
+    }
+
+    // Clear previous specific service options, restore default placeholder, and disable
+    if (fields.service) {
+      fields.service.innerHTML = '<option value="">-- First Select a Category Above --</option>';
+      fields.service.disabled = true;
+    }
+
+    // Clear all validation error classes and messages
+    form.querySelectorAll('.form-group').forEach(group => {
+      group.classList.remove('has-error');
+      const err = group.querySelector('.form-error-msg');
+      if (err) err.textContent = '';
+    });
+  }
 
   // Validation rules
   function validateField(field) {
@@ -355,7 +398,7 @@ function initLeadFormValidation() {
     return isValid;
   }
 
-  // Real-time validation on blur & input
+  // Real-time validation listeners
   Object.values(fields).forEach(field => {
     if (!field) return;
     field.addEventListener('blur', () => validateField(field));
@@ -367,7 +410,7 @@ function initLeadFormValidation() {
     });
   });
 
-  // Build WhatsApp pre-filled message text
+  // Build WhatsApp formatted message text
   function buildWhatsAppMessage() {
     const name = fields.name ? fields.name.value.trim() : 'Customer';
     const countryCode = fields.countryCode ? fields.countryCode.value.trim() : BUSINESS_CONFIG.defaultCountryCode;
@@ -396,7 +439,6 @@ function initLeadFormValidation() {
     whatsappBtn.addEventListener('click', (e) => {
       e.preventDefault();
 
-      // Validate all fields before sending
       let allValid = true;
       Object.values(fields).forEach(f => {
         if (!validateField(f)) allValid = false;
@@ -411,12 +453,12 @@ function initLeadFormValidation() {
       }
 
       const text = buildWhatsAppMessage();
-      const whatsappUrl = `https://wa.me/${BUSINESS_CONFIG.internationalNumber}?text=${encodeURIComponent(text)}`;
+      const whatsappUrl = `${BUSINESS_CONFIG.whatsappBaseUrl}?text=${encodeURIComponent(text)}`;
       window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
     });
   }
 
-  // Form Submit Handler (Frontend only simulation with rich modal summary)
+  // Form Submit Handler
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -448,7 +490,6 @@ function initLeadFormValidation() {
       submitBtn.disabled = false;
       submitBtn.innerHTML = originalText;
 
-      // Populate summary modal
       const modalName = document.getElementById('modalSummaryName');
       const modalPhone = document.getElementById('modalSummaryPhone');
       const modalCategory = document.getElementById('modalSummaryCategory');
@@ -459,27 +500,23 @@ function initLeadFormValidation() {
       if (modalCategory) modalCategory.textContent = fields.category.value;
       if (modalService) modalService.textContent = fields.service.value;
 
-      // Setup WhatsApp button inside modal as well
       const modalWaBtn = document.getElementById('modalWhatsappBtn');
       if (modalWaBtn) {
         const text = buildWhatsAppMessage();
-        modalWaBtn.href = `https://wa.me/${BUSINESS_CONFIG.internationalNumber}?text=${encodeURIComponent(text)}`;
+        modalWaBtn.href = `${BUSINESS_CONFIG.whatsappBaseUrl}?text=${encodeURIComponent(text)}`;
       }
 
-      // Show modal
       if (modal) {
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
       }
 
-      form.reset();
-      if (typeof initCategoryDropdowns === 'function') {
-        initCategoryDropdowns();
-      }
+      // Perform complete clean reset
+      resetFormCompletely();
     }, 800);
   });
 
-  // Close Modal handlers
+  // Modal Close Handlers
   closeModalBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       if (modal) {
@@ -500,7 +537,7 @@ function initLeadFormValidation() {
 }
 
 // ----------------------------------------------------------------------------
-// 9. FAQ Accordion Component
+// 10. FAQ Accordion Component
 // ----------------------------------------------------------------------------
 function initFaqAccordion() {
   const faqItems = document.querySelectorAll('.faq-item');
@@ -515,7 +552,6 @@ function initFaqAccordion() {
     header.addEventListener('click', () => {
       const isActive = item.classList.contains('active');
 
-      // Close all items
       faqItems.forEach(otherItem => {
         otherItem.classList.remove('active');
         const otherBody = otherItem.querySelector('.faq-body');
@@ -524,7 +560,6 @@ function initFaqAccordion() {
         if (otherHeader) otherHeader.setAttribute('aria-expanded', 'false');
       });
 
-      // If clicked item was not active, open it
       if (!isActive) {
         item.classList.add('active');
         body.style.maxHeight = `${body.scrollHeight + 30}px`;
@@ -533,7 +568,6 @@ function initFaqAccordion() {
     });
   });
 
-  // Open first item by default
   if (faqItems[0]) {
     const firstHeader = faqItems[0].querySelector('.faq-header');
     const firstBody = faqItems[0].querySelector('.faq-body');
@@ -546,7 +580,7 @@ function initFaqAccordion() {
 }
 
 // ----------------------------------------------------------------------------
-// 10. Service Filter Tabs
+// 11. Service Filter Tabs
 // ----------------------------------------------------------------------------
 function initServiceTabs() {
   const tabBtns = document.querySelectorAll('.services-tabs .tab-btn');
@@ -579,7 +613,7 @@ function initServiceTabs() {
 }
 
 // ----------------------------------------------------------------------------
-// 11. Back to Top Button
+// 12. Back to Top Button
 // ----------------------------------------------------------------------------
 function initBackToTop() {
   const backToTopBtn = document.querySelector('.btn-back-to-top');
@@ -605,10 +639,9 @@ function initBackToTop() {
 }
 
 // ----------------------------------------------------------------------------
-// 12. Scroll Reveal Animations (IntersectionObserver)
+// 13. Scroll Reveal Animations (IntersectionObserver)
 // ----------------------------------------------------------------------------
 function initScrollReveal() {
-  // Check if reduced motion is requested
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (prefersReducedMotion) return;
 
@@ -631,7 +664,7 @@ function initScrollReveal() {
 }
 
 // ----------------------------------------------------------------------------
-// 13. Dynamic Copyright Year
+// 14. Dynamic Copyright Year
 // ----------------------------------------------------------------------------
 function initDynamicYear() {
   const yearElement = document.getElementById('currentYear');
