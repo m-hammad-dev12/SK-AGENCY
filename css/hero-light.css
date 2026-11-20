@@ -1,0 +1,179 @@
+/* ==========================================================================
+   SK AGENCY — Hero Section (Light Premium Redesign)
+   --------------------------------------------------------------------------
+   Hero-only overrides. Nothing outside .hero-section is touched, so the
+   navbar, About, Services, Products, Why Choose, How It Works, Enquiry,
+   FAQ, Contact and Footer keep the existing navy/orange branding.
+
+   Colours are CSS variables scoped to .hero-section, so a future colour
+   change is a one-line edit here.
+
+   Background image: set --hero-bg-image to the hero photo when one is
+   available, e.g. url('../assets/hero-bg.jpg'). Until then it is `none`
+   and the light gradient below is the background. The light overlay in
+   the gradient keeps the text readable over any photo, and the image
+   always covers the hero (background-size: cover, position: center).
+   ========================================================================== */
+
+.hero-section {
+  /* Hero colour tokens — edit these to retheme the hero */
+  --hero-primary: #2563EB;        /* Royal Blue — primary button */
+  --hero-primary-hover: #1D4ED8;  /* Deep Blue — primary button hover */
+  --hero-primary-soft: #EFF6FF;   /* Very light blue — icon / hover wash */
+  --hero-primary-border: #DBEAFE; /* Light blue border */
+  --hero-bg: #F8FAFC;             /* Soft white */
+  --hero-bg-soft: #EFF6FF;        /* Very light blue */
+  --hero-heading: #0F2040;        /* Deep navy — headings */
+  --hero-text: #475569;           /* Slate — body text */
+  --hero-text-muted: #64748B;     /* Muted slate — small text */
+  --hero-bg-image: none;          /* <- set to url('../assets/hero-bg.jpg') */
+
+  background-color: var(--hero-bg);
+  background-image:
+    linear-gradient(180deg, rgba(248, 250, 252, 0.92) 0%, rgba(239, 246, 255, 0.85) 55%, rgba(248, 250, 252, 0.94) 100%),
+    var(--hero-bg-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: var(--hero-heading);
+}
+
+/* Soft blue glow instead of the old orange glow */
+.hero-overlay-glow {
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.14) 0%, rgba(37, 99, 235, 0) 70%);
+}
+
+/* --- Typography ---------------------------------------------------------- */
+
+.hero-badge {
+  background: var(--white);
+  border: 1px solid var(--hero-primary-border);
+  color: var(--hero-primary-hover);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.08);
+}
+
+.hero-heading {
+  color: var(--hero-heading);
+  letter-spacing: -1.5px;
+}
+
+/* The "Better Growth." accent — blue in the hero, orange nowhere here */
+.hero-heading .highlight-orange {
+  color: var(--hero-primary);
+}
+
+.hero-subtitle {
+  color: var(--hero-text);
+}
+
+/* --- Buttons (hero only — no orange anywhere in the hero) ---------------- */
+
+.hero-actions .btn {
+  border-radius: 999px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+/* Primary: Royal Blue, hover Deep Blue */
+.hero-actions .btn-primary {
+  background: var(--hero-primary);
+  color: var(--white);
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.28);
+}
+
+.hero-actions .btn-primary:hover {
+  background: var(--hero-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(37, 99, 235, 0.36);
+  color: var(--white);
+}
+
+.hero-actions .btn-primary:active {
+  background: var(--hero-primary-hover);
+  transform: translateY(0);
+}
+
+/* Secondary + outline: white background, blue border, blue text */
+.hero-actions .btn-secondary,
+.hero-actions .btn-outline {
+  background: var(--white);
+  color: var(--hero-primary);
+  border: 1.5px solid var(--hero-primary);
+  box-shadow: 0 6px 16px rgba(15, 32, 64, 0.06);
+}
+
+.hero-actions .btn-secondary:hover,
+.hero-actions .btn-outline:hover {
+  background: var(--hero-primary-soft);
+  border-color: var(--hero-primary-hover);
+  color: var(--hero-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.14);
+}
+
+/* --- Trust bar ----------------------------------------------------------- */
+
+.hero-trust-bar {
+  border-top: 1px solid var(--hero-primary-border);
+}
+
+.hero-section .trust-icon {
+  background: var(--hero-primary-soft);
+  color: var(--hero-primary);
+}
+
+.hero-section .trust-title {
+  color: var(--hero-heading);
+}
+
+.hero-section .trust-desc {
+  color: var(--hero-text-muted);
+}
+
+/* --- Entrance animation: subtle fade-in + slide-up, staggered ------------ */
+
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-badge,
+.hero-heading,
+.hero-subtitle,
+.hero-actions,
+.hero-trust-bar {
+  animation: hero-fade-up 0.7s ease both;
+}
+
+.hero-heading { animation-delay: 0.08s; }
+.hero-subtitle { animation-delay: 0.16s; }
+.hero-actions { animation-delay: 0.24s; }
+.hero-trust-bar { animation-delay: 0.32s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-badge,
+  .hero-heading,
+  .hero-subtitle,
+  .hero-actions,
+  .hero-trust-bar {
+    animation: none;
+  }
+}
+
+/* --- Responsive: keep the light hero comfortable on small screens -------- */
+
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 3rem 0 2.5rem 0;
+  }
+
+  .hero-heading {
+    font-size: clamp(1.9rem, 8vw, 2.5rem);
+    letter-spacing: -0.5px;
+  }
+}
