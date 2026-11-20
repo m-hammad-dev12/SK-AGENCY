@@ -8,10 +8,11 @@
    Colours are CSS variables scoped to .hero-section, so a future colour
    change is a one-line edit here.
 
-   Background image: set --hero-bg-image to the hero photo when one is
-   available, e.g. url('../assets/hero-bg.jpg'). Until then it is `none`
-   and the light gradient below is the background. The light overlay in
-   the gradient keeps the text readable over any photo, and the image
+   Background image: set --hero-bg-image to the hero photo, currently
+   url('../assets/hero-bg.jpg') — an AI-generated corporate photo added
+   20 Nov 2026 with Hammad's explicit approval (a one-off exception to
+   his no-AI-images rule, for the hero only). The light overlay in the
+   gradient keeps the text readable over the photo, and the image
    always covers the hero (background-size: cover, position: center).
    ========================================================================== */
 
@@ -26,7 +27,7 @@
   --hero-heading: #0F2040;        /* Deep navy — headings */
   --hero-text: #475569;           /* Slate — body text */
   --hero-text-muted: #64748B;     /* Muted slate — small text */
-  --hero-bg-image: none;          /* <- set to url('../assets/hero-bg.jpg') */
+  --hero-bg-image: url('../assets/hero-bg.jpg'); /* AI-generated hero photo, added 20 Nov 2026 with Hammad's approval */
 
   background-color: var(--hero-bg);
   background-image:
