@@ -46,7 +46,15 @@ const CATEGORY_DATA = {
     'Automotive Transponder Remote Chip',
     'Heavy-Duty Anti-Vibration Pads',
     'Smart Wireless Power Station',
-    'Custom product sourcing enquiry'
+    'Custom product sourcing enquiry',
+    'Car Key Diagnostic & Key Fob Set — $44',
+    'BMW Key Programming — $44',
+    'Honda Smart Key Fob — $44',
+    'Mobile Auto Locksmith Service — $44',
+    'Car Key Duplication — $44',
+    'Key Fob with Blade — $44',
+    'Mercedes-Benz Smart Key Fob — $44',
+    'Smart Key Fob Bundle — $44'
   ],
   'Other Enquiries': [
     'Customer lead generation',
