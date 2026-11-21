@@ -40,12 +40,6 @@ const CATEGORY_DATA = {
     'Other appliance repair enquiries'
   ],
   'Products': [
-    'Smart Universal Key Fob Housing',
-    'Digital Inverter Diagnostic Tool',
-    'Multi-Stage Water Purifier Filter',
-    'Automotive Transponder Remote Chip',
-    'Heavy-Duty Anti-Vibration Pads',
-    'Smart Wireless Power Station',
     'Custom product sourcing enquiry',
     'Car Key Diagnostic & Key Fob Set — $44.00',
     'BMW Key Programming — $44.00',

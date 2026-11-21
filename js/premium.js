@@ -1,7 +1,7 @@
 /* ==========================================================================
    SK AGENCY — Premium interactions (Nov 2026)
    Loaded AFTER js/script.js. No libraries, no rebuild.
-   1. Image-first cards: inserts a "View Deals" / "Hide Details" button
+   1. Image-first cards: inserts a "View Details" / "Hide Details" button
       below each service/product visual. Clicking toggles only that card.
    2. Staggered card entrances: small per-card transition delay inside
       grids, cleared after the reveal so hover stays instant.
@@ -11,7 +11,7 @@
 
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* --- 1. View Deals (services) / View Details (products) ------------- */
+  /* --- 1. View Details (services + products) -------------------------- */
   var cards = document.querySelectorAll('.service-card, .product-card');
 
   cards.forEach(function (card, index) {
@@ -21,7 +21,7 @@
     var body = isProduct
       ? card.querySelector('.product-details')
       : card.querySelector('.service-body');
-    var visual = card.querySelector('.service-icon-header, .product-img-wrap, .product-icon-wrap');
+    var visual = card.querySelector('.service-img-wrap, .product-img-wrap');
     if (!body || !visual) return;
 
     if (!body.id) body.id = 'card-details-' + (index + 1);
@@ -32,15 +32,13 @@
     var button = document.createElement('button');
     button.type = 'button';
     button.className = 'btn btn-outline-navy btn-sm view-deals-btn';
-    button.textContent = isProduct ? 'View Details' : 'View Deals';
+    button.textContent = 'View Details';
     button.setAttribute('aria-expanded', 'false');
     button.setAttribute('aria-controls', body.id);
 
     button.addEventListener('click', function () {
       var isOpen = card.classList.toggle('details-open');
-      button.textContent = isOpen
-        ? 'Hide Details'
-        : (isProduct ? 'View Details' : 'View Deals');
+      button.textContent = isOpen ? 'Hide Details' : 'View Details';
       button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
 
@@ -61,7 +59,7 @@
   /* --- 2. Staggered entrances -------------------------------------------- */
   if (reducedMotion) return;
 
-  var grids = document.querySelectorAll('.services-grid, .products-grid, .why-features-grid');
+  var grids = document.querySelectorAll('.services-grid, .products-grid, .why-features-grid, .hiw-grid');
   var staggered = [];
 
   grids.forEach(function (grid) {
