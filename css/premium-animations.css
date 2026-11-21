@@ -112,7 +112,6 @@ button:focus-visible,
 .product-card .product-body {
   display: flex;
   flex-direction: column;
-  height: 100%;
 }
 
 .product-card .product-summary {
@@ -138,6 +137,12 @@ button:focus-visible,
 
 .service-card .service-body {
   max-height: 0;
+  /* min-height: 0 is the fix for the phantom gap: a flex item's automatic
+     minimum size (min-height: auto) otherwise keeps the collapsed body's
+     full content height in the card's intrinsic size, so every collapsed
+     card stayed ~170px taller than its visible content and the summary's
+     flex-grow turned that slack into empty white space. */
+  min-height: 0;
   overflow: hidden;
   opacity: 0;
   visibility: hidden;
@@ -160,6 +165,11 @@ button:focus-visible,
 
 .product-card .product-details {
   max-height: 0;
+  /* min-height: 0 — same phantom-gap fix as .service-body above: without
+     it the collapsed details keep their full content height in the card's
+     intrinsic size, leaving ~170px of empty white space between the
+     caption and the View Details button on every collapsed card. */
+  min-height: 0;
   overflow: hidden;
   opacity: 0;
   visibility: hidden;
