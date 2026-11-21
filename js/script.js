@@ -17,7 +17,7 @@ const BUSINESS_CONFIG = {
   tagline: 'Smart Marketing. More Customers. Better Growth.',
   phoneDisplay: '+92 370 1604764',
   localPhone: '03701604764',
-  email: 'info@skagency.pk',
+  email: 'sharjeelmunawar512@gmail.com',
   defaultCountryCode: '+92',
   internationalNumber: '923701604764',
   telLink: 'tel:+923701604764',

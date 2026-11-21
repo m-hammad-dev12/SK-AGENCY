@@ -93,6 +93,6 @@ Then visit `http://localhost:8000` in your browser.
 ## 📞 Business Contact
 
 - **Hotline**: `+92 370 1604764` / `03701604764`
-- **Email**: `info@skagency.pk`
+- **Email**: `sharjeelmunawar512@gmail.com`
 - **WhatsApp**: [https://wa.me/923701604764](https://wa.me/923701604764)
 - **Tagline**: *"Smart Marketing. More Customers. Better Growth."*

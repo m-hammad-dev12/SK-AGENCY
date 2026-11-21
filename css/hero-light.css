@@ -34,7 +34,7 @@
     linear-gradient(180deg, rgba(248, 250, 252, 0.75) 0%, rgba(239, 246, 255, 0.58) 55%, rgba(248, 250, 252, 0.78) 100%),
     var(--hero-bg-image);
   background-size: cover;
-  background-position: center;
+  background-position: center center;
   background-repeat: no-repeat;
   color: var(--hero-heading);
 }
@@ -163,6 +163,23 @@
   .hero-actions,
   .hero-trust-bar {
     animation: none;
+  }
+}
+
+/* --- Mobile: dedicated crop so the team + laptop stay centred -------------
+   The desktop photo is 1920x823 with the team on the right; on a phone
+   `cover` shows only a thin centre slice (mostly empty wall) and that
+   slice moves as the width changes, which reads as the image "shifting".
+   Below 768px we swap in hero-bg-mobile.jpg — a 680x763 crop of the same
+   photo centred on the team + laptop — so the subject stays centred at
+   every phone/tablet width. The light overlay gradient is untouched, so
+   text readability is unchanged. Desktop keeps hero-bg.jpg. */
+@media (max-width: 768px) {
+  .hero-section {
+    --hero-bg-image: url('../assets/hero-bg-mobile.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
   }
 }
 
