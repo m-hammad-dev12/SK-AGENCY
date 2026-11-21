@@ -11,11 +11,16 @@
 
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* --- 1. View Deals / Hide Details ------------------------------------- */
+  /* --- 1. View Deals (services) / View Details (products) ------------- */
   var cards = document.querySelectorAll('.service-card, .product-card');
 
   cards.forEach(function (card, index) {
-    var body = card.querySelector('.service-body, .product-body');
+    var isProduct = card.classList.contains('product-card');
+    /* Services collapse the whole body; products collapse only the
+       details — the summary (name + caption) always stays visible. */
+    var body = isProduct
+      ? card.querySelector('.product-details')
+      : card.querySelector('.service-body');
     var visual = card.querySelector('.service-icon-header, .product-img-wrap, .product-icon-wrap');
     if (!body || !visual) return;
 
@@ -27,18 +32,26 @@
     var button = document.createElement('button');
     button.type = 'button';
     button.className = 'btn btn-outline-navy btn-sm view-deals-btn';
-    button.textContent = 'View Deals';
+    button.textContent = isProduct ? 'View Details' : 'View Deals';
     button.setAttribute('aria-expanded', 'false');
     button.setAttribute('aria-controls', body.id);
 
     button.addEventListener('click', function () {
       var isOpen = card.classList.toggle('details-open');
-      button.textContent = isOpen ? 'Hide Details' : 'View Deals';
+      button.textContent = isOpen
+        ? 'Hide Details'
+        : (isProduct ? 'View Details' : 'View Deals');
       button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
 
     bar.appendChild(button);
-    visual.after(bar);
+    if (isProduct) {
+      /* After the details, so the button stays at the bottom of the card
+         whether the card is collapsed or expanded. */
+      card.querySelector('.product-body').appendChild(bar);
+    } else {
+      visual.after(bar);
+    }
   });
 
   /* --- 2. Staggered entrances -------------------------------------------- */

@@ -89,11 +89,14 @@ button:focus-visible,
   transition: box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
-/* --- 4. Image-first cards: View Deals / Hide Details ----------------------
-   Collapsed: only the visual (photo / icon header) and the View Deals
-   button show. The body (title, description, features, price, CTAs)
-   expands smoothly with max-height + fade. No overlap: the grid reflows
-   naturally, so expanded content pushes later rows down. */
+/* --- 4. Image-first cards: View Deals / View Details -------------------
+   Services: the whole body collapses, only the icon header + View Deals
+   button show. Products: only the details collapse — the summary
+   (name + short caption) and the View Details button always show, and
+   the button stays at the bottom of the card. The body (title,
+   description, features, price, CTAs) expands smoothly with
+   max-height + fade. No overlap: the grid reflows naturally, so
+   expanded content pushes later rows down. */
 .view-deals-bar {
   padding: 1rem 1.25rem 1.25rem;
 }
@@ -102,8 +105,38 @@ button:focus-visible,
   width: 100%;
 }
 
-.service-card .service-body,
+/* Consistent collapsed height: title and caption reserve two lines each,
+   captions are clamped to two lines, and the button is pushed to the
+   bottom of the card body. */
 .product-card .product-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.product-card .product-summary {
+  flex: 1 1 auto;
+}
+
+.product-card .product-title {
+  min-height: 2.8em;
+}
+
+.product-card .product-caption {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 3rem;
+  margin-bottom: 0;
+}
+
+.product-card .view-deals-bar {
+  margin-top: auto;
+  padding-top: 0.75rem;
+}
+
+.service-card .service-body {
   max-height: 0;
   overflow: hidden;
   opacity: 0;
@@ -117,13 +150,34 @@ button:focus-visible,
     visibility 0.55s;
 }
 
-.service-card.details-open .service-body,
-.product-card.details-open .product-body {
+.service-card.details-open .service-body {
   max-height: 700px;
   opacity: 1;
   visibility: visible;
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
+}
+
+.product-card .product-details {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  padding-top: 0;
+  padding-bottom: 0;
+  transition: max-height 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.4s ease,
+    padding-top 0.55s ease,
+    padding-bottom 0.55s ease,
+    visibility 0.55s;
+}
+
+.product-card.details-open .product-details {
+  max-height: 700px;
+  opacity: 1;
+  visibility: visible;
+  padding-top: 1rem;
+  padding-bottom: 0;
 }
 
 /* --- 5. Gentle floating, only on the floating WhatsApp shortcut ---------- */
@@ -148,12 +202,12 @@ button:focus-visible,
   }
 
   .service-card .service-body,
-  .product-card .product-body {
+  .product-card .product-details {
     transition: none;
   }
 
   .service-card.details-open .service-body,
-  .product-card.details-open .product-body {
+  .product-card.details-open .product-details {
     max-height: none;
   }
 }
