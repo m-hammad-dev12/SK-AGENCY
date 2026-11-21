@@ -290,3 +290,27 @@ section[id] {
     transition: none;
   }
 }
+
+/* --- 7. Hamburger icon: ~20% smaller, same 48px tap target ----------------
+   Only the three lines shrink (30px -> 24px wide, 22px -> 18px tall mark).
+   The button stays 48x48px (responsive-fix.css) so the tap target and the
+   alignment with the 48px WhatsApp button are unchanged; the navbar-actions
+   1rem gaps are untouched. The open-state X is re-centred for the new
+   spacing: line centres are 8px apart (2px line + 6px gap). */
+.hamburger-toggle {
+  justify-content: center;
+  gap: 6px;
+}
+
+.hamburger-line {
+  width: 80%;
+  align-self: center;
+}
+
+.hamburger-toggle.open .hamburger-line:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger-toggle.open .hamburger-line:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
