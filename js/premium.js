@@ -50,7 +50,11 @@
          whether the card is collapsed or expanded. */
       card.querySelector('.product-body').appendChild(bar);
     } else {
-      visual.after(bar);
+      /* After the always-visible summary (title + short desc), so the
+         service title shows on collapsed cards too. */
+      var summary = card.querySelector('.service-summary');
+      if (summary) summary.after(bar);
+      else visual.after(bar);
     }
   });
 

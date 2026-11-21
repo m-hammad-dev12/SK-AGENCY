@@ -105,9 +105,10 @@ button:focus-visible,
   width: 100%;
 }
 
-/* Consistent collapsed height: title and caption reserve two lines each,
-   captions are clamped to two lines, and the button is pushed to the
-   bottom of the card body. */
+/* Consistent collapsed height: captions are clamped to two lines and the
+   View Details button is pushed to the bottom of the card body, so the
+   buttons line up across a row. (No reserved min-height on title/caption:
+   that left a large empty gap inside short cards.) */
 .product-card .product-body {
   display: flex;
   flex-direction: column;
@@ -118,22 +119,21 @@ button:focus-visible,
   flex: 1 1 auto;
 }
 
-.product-card .product-title {
-  min-height: 2.8em;
-}
-
 .product-card .product-caption {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  min-height: 3rem;
   margin-bottom: 0;
 }
 
 .product-card .view-deals-bar {
   margin-top: auto;
   padding-top: 0.75rem;
+}
+
+.service-card .service-summary {
+  padding: 1.25rem 1.25rem 0;
 }
 
 .service-card .service-body {

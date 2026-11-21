@@ -7,8 +7,11 @@
    Breakpoints covered: 320, 360, 375, 390, 414, 430, 480, 768, 1024, 1366, 1920
    ========================================================================== */
 
-/* --- 0. Global safety: no horizontal scroll on any width --- */
-html, body { overflow-x: hidden; width: 100%; }
+/* --- 0. Global safety: no horizontal scroll on any width ---
+   overflow-x: clip (not hidden): hidden on html/body breaks the sticky
+   navbar in Chrome; clip hides horizontal overflow without creating a
+   scroll container, so position: sticky keeps working. */
+html, body { overflow-x: clip; width: 100%; }
 img, picture, video, iframe { max-width: 100%; height: auto; }
 * { min-width: 0; }
 

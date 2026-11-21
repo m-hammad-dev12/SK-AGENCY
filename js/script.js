@@ -58,10 +58,12 @@ const CATEGORY_DATA = {
     'Mercedes Diagnostic & Key Programming Workstation — $44.00'
   ],
   'Other Enquiries': [
-    'Customer lead generation',
     'Service request assistance',
     'Connecting with relevant services',
     'General business enquiry'
+  ],
+  'Lead Generation': [
+    'Customer lead generation'
   ]
 };
 
@@ -503,11 +505,15 @@ function initLeadFormValidation() {
       const modalPhone = document.getElementById('modalSummaryPhone');
       const modalCategory = document.getElementById('modalSummaryCategory');
       const modalService = document.getElementById('modalSummaryService');
+      const modalEmail = document.getElementById('modalSummaryEmail');
+      const modalMessage = document.getElementById('modalSummaryMessage');
 
       if (modalName) modalName.textContent = fields.name.value.trim();
       if (modalPhone) modalPhone.textContent = `${fields.countryCode.value} ${fields.phone.value.trim()}`;
       if (modalCategory) modalCategory.textContent = fields.category.value;
       if (modalService) modalService.textContent = fields.service.value;
+      if (modalEmail) modalEmail.textContent = fields.email.value.trim();
+      if (modalMessage) modalMessage.textContent = fields.message.value.trim();
 
       const modalWaBtn = document.getElementById('modalWhatsappBtn');
       if (modalWaBtn) {

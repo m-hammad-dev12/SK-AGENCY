@@ -95,7 +95,10 @@ body {
   color: var(--text-color);
   background-color: var(--light-bg);
   line-height: 1.6;
-  overflow-x: hidden;
+  /* overflow-x: clip (not hidden) — hidden creates a scroll container on
+     body and breaks position: sticky on the navbar; clip hides horizontal
+     overflow without breaking sticky. */
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
